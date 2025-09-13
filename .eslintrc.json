@@ -4,7 +4,15 @@
     "browser": true,
     "node": true
   },
-  "extends": ["prettier", "plugin:jsx-a11y/recommended", "plugin:react-hooks/recommended", "plugin:react/recommended"],
+  "extends": [
+    "prettier",
+    "plugin:jsx-a11y/recommended",
+    "plugin:react-hooks/recommended",
+    "plugin:react/recommended",
+    "next",
+    "next/core-web-vitals"
+  ],
+
   "plugins": ["prettier", "react", "react-hooks"],
   "parser": "@babel/eslint-parser",
   "parserOptions": {
@@ -53,12 +61,7 @@
     "import/no-extraneous-dependencies": 0,
     "react/jsx-key": 1,
     "react-hooks/rules-of-hooks": 2,
-    "no-unused-vars": [
-      1,
-      {"argsIgnorePattern": "^_", "varsIgnorePattern": "^_" ,
-        "ignoreRestSiblings": false
-      }
-    ],
+    "no-unused-vars": [1, { "argsIgnorePattern": "^_", "varsIgnorePattern": "^_", "ignoreRestSiblings": false }],
     "prettier/prettier": [
       2,
       {
@@ -68,5 +71,10 @@
         "tabWidth": 2
       }
     ]
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    }
   }
 }

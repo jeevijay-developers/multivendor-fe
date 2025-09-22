@@ -20,7 +20,7 @@ const Logo = ({ branding }) => {
       }}
     >
       <Image
-        src={isDarkMode ? branding.logoDark.url : branding.logoLight.url}
+        src={`/logo-light.svg`}
         alt="Logo"
         height={56}
         width={200} // Will be overridden by aspect ratio automatically

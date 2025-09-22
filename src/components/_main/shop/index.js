@@ -117,9 +117,13 @@ export default function ShopMain({ isShopLoading, shop, type }) {
         .matches(/^[0-9]{9,18}$/, 'Account number must be between 9-18 digits')
         .required('Account number is required'),
       accountHolderName: Yup.string().required('Account holder name is required'),
-      aadharCard: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Aadhar card photo is required') }),
+      aadharCard: Yup.object().shape({
+        url: Yup.string().url('Invalid URL').required('Aadhar card photo is required')
+      }),
       panCard: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('PAN card photo is required') }),
-      cancelCheque: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Cancel cheque photo is required') })
+      cancelCheque: Yup.object().shape({
+        url: Yup.string().url('Invalid URL').required('Cancel cheque photo is required')
+      })
     }),
     operationalDetails: Yup.object().shape({ returnPolicy: Yup.string(), handlingTime: Yup.string() }),
     ...(isVendor && {
@@ -281,7 +285,11 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       }
     };
     await axios
-      .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData,
+        config
+      )
       .then(({ data }) => {
         setFieldValue(field, { _id: data.public_id, url: data.secure_url });
         setstate({ ...state, [`${split.length > 1 ? split[1] : split[0]}Loading`]: false });
@@ -323,7 +331,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
           <Grid container spacing={2}>
             <Grid
               size={{
-                md: 8,
+                md: 8
               }}
             >
               <Card>
@@ -351,7 +359,9 @@ export default function ShopMain({ isShopLoading, shop, type }) {
                 <Card>
                   <CardHeader
                     title={
-                      <>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Identity Verification'}</>
+                      <>
+                        {isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Identity Verification'}
+                      </>
                     }
                   />
                   <CardContent>

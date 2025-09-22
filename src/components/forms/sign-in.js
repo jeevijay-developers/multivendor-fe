@@ -128,7 +128,7 @@ export default function SignInForm() {
               <TextField
                 id="email"
                 fullWidth
-                placeholder='example@domain.com'
+                placeholder="example@domain.com"
                 autoComplete="username"
                 type="email"
                 {...getFieldProps('email')}
@@ -151,7 +151,7 @@ export default function SignInForm() {
               <TextField
                 id="password"
                 fullWidth
-                placeholder='**********'
+                placeholder="**********"
                 autoComplete="current-password"
                 type={showPassword ? 'text' : 'password'}
                 {...getFieldProps('password')}

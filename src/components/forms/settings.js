@@ -212,7 +212,11 @@ export default function ThemeSettingForm({ ...props }) {
       }
     };
     await axios
-      .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData,
+        config
+      )
       .then(({ data }) => {
         setFieldValue('logoDark', {
           _id: data.public_id,
@@ -247,7 +251,11 @@ export default function ThemeSettingForm({ ...props }) {
       }
     };
     await axios
-      .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData,
+        config
+      )
       .then(({ data }) => {
         setFieldValue('logoLight', {
           _id: data.public_id,
@@ -282,7 +290,11 @@ export default function ThemeSettingForm({ ...props }) {
       }
     };
     await axios
-      .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData,
+        config
+      )
       .then(({ data }) => {
         setFieldValue('favicon', {
           _id: data.public_id,

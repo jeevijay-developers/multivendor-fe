@@ -124,7 +124,11 @@ export default function GeneralProfileForm({ user, isLoading, avatarId }) {
         }
       };
       await axios
-        .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+        .post(
+          `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+          formData,
+          config
+        )
         .then(({ data }) => {
           setFieldValue('cover', { _id: data.public_id, url: data.secure_url });
         })

@@ -76,7 +76,10 @@ export default function ProductDetailsReviewForm({ ...props }) {
       formData.append('upload_preset', 'nekimart');
       setFieldValue('blob', values.blob.concat(acceptedFiles));
       // ${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}
-      return axios.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData);
+      return axios.post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData
+      );
     });
     const blobs = acceptedFiles.map((file) => {
       return URL.createObjectURL(file);

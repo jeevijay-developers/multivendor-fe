@@ -104,11 +104,12 @@ export default function BrandsForm({ data: currentBrand, isLoading: brandLoading
         setstate({ ...state, loading: percentage });
       }
     };
-    await axios.post(
-      `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
-      formData,
-      config
-    )
+    await axios
+      .post(
+        `https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`,
+        formData,
+        config
+      )
       .then(({ data }) => {
         setFieldValue('logo', { _id: data.public_id, url: data.secure_url });
         setstate({ ...state, loading: false });

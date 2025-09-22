@@ -20,13 +20,7 @@ import IdentityVerificationForm from './identity-verification';
 
 const steps = ['Shop Information', 'Identity Verification', 'Owner Details'];
 
-export default function TwoStepShopForm({ 
-  handleDrop, 
-  formik, 
-  state, 
-  handleNameChange, 
-  isLoading 
-}) {
+export default function TwoStepShopForm({ handleDrop, formik, state, handleNameChange, isLoading }) {
   const [activeStep, setActiveStep] = useState(0);
   const { validateForm, setTouched, handleSubmit } = formik;
 
@@ -34,26 +28,23 @@ export default function TwoStepShopForm({
     switch (step) {
       case 0:
         return [
-          'logo', 
-          'name', 
-          'description', 
-          'registrationNumber', 
+          'logo',
+          'name',
+          'description',
+          'registrationNumber',
           'address.country',
-          'address.city', 
+          'address.city',
           'address.state',
           'address.streetAddress',
-          'contactPerson', 
-          'shopEmail', 
-          'shopPhone', 
-          'website', 
-          'taxIdentificationNumber', 
+          'contactPerson',
+          'shopEmail',
+          'shopPhone',
+          'website',
+          'taxIdentificationNumber',
           'vatRegistrationNumber'
         ];
       case 1:
-        return [
-          'identityVerification.governmentId',
-          'identityVerification.proofOfAddress'
-        ];
+        return ['identityVerification.governmentId', 'identityVerification.proofOfAddress'];
       case 2:
         return [
           'ownerDetails.aadharCardNumber',
@@ -76,18 +67,18 @@ export default function TwoStepShopForm({
     // Validate current step before moving to next
     const errors = await validateForm();
     const currentStepFields = getCurrentStepFields(activeStep);
-    
+
     // Check if any of the current step fields have errors
-    const currentStepErrors = Object.keys(errors).filter(errorKey => 
-      currentStepFields.some(field => errorKey === field || errorKey.startsWith(field + '.'))
+    const currentStepErrors = Object.keys(errors).filter((errorKey) =>
+      currentStepFields.some((field) => errorKey === field || errorKey.startsWith(field + '.'))
     );
-    
+
     if (currentStepErrors.length === 0) {
       setActiveStep((prevActiveStep) => prevActiveStep + 1);
     } else {
       // Mark fields as touched to show validation errors
       const touchedFields = {};
-      currentStepFields.forEach(field => {
+      currentStepFields.forEach((field) => {
         // Handle nested fields properly
         if (field.includes('.')) {
           const [parent, child] = field.split('.');
@@ -115,17 +106,17 @@ export default function TwoStepShopForm({
     // Validate entire form
     const errors = await validateForm();
     console.log('Form validation errors:', errors);
-    
+
     if (Object.keys(errors).length === 0) {
       handleSubmit();
     } else {
       // Mark all fields as touched to show all validation errors
       const allTouched = {};
-      Object.keys(formik.values).forEach(key => {
+      Object.keys(formik.values).forEach((key) => {
         allTouched[key] = true;
       });
       setTouched(allTouched);
-      console.log('Creating shop...')
+      console.log('Creating shop...');
     }
   };
 
@@ -142,23 +133,9 @@ export default function TwoStepShopForm({
           />
         );
       case 1:
-        return (
-          <IdentityVerificationForm
-            isLoading={isLoading}
-            handleDrop={handleDrop}
-            state={state}
-            formik={formik}
-          />
-        );
+        return <IdentityVerificationForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
       case 2:
-        return (
-          <OwnerDetailsForm
-            isLoading={isLoading}
-            handleDrop={handleDrop}
-            state={state}
-            formik={formik}
-          />
-        );
+        return <OwnerDetailsForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
       default:
         return null;
     }
@@ -172,9 +149,9 @@ export default function TwoStepShopForm({
           <Stepper activeStep={activeStep} alternativeLabel>
             {steps.map((label, index) => (
               <Step key={label}>
-                <StepLabel 
+                <StepLabel
                   onClick={() => handleStepClick(index)}
-                  sx={{ 
+                  sx={{
                     cursor: 'pointer',
                     '& .MuiStepLabel-label': {
                       fontSize: '0.875rem'
@@ -194,45 +171,25 @@ export default function TwoStepShopForm({
         <CardHeader
           title={
             <Typography variant="h6">
-              {isLoading ? (
-                <Skeleton variant="text" height={28} width={240} />
-              ) : (
-                steps[activeStep]
-              )}
+              {isLoading ? <Skeleton variant="text" height={28} width={240} /> : steps[activeStep]}
             </Typography>
           }
         />
-        <CardContent>
-          {renderStepContent(activeStep)}
-        </CardContent>
+        <CardContent>{renderStepContent(activeStep)}</CardContent>
       </Card>
 
       {/* Navigation Buttons */}
       <Stack direction="row" spacing={2} sx={{ mt: 3, justifyContent: 'flex-end' }}>
-        <Button
-          disabled={activeStep === 0}
-          onClick={handleBack}
-          variant="outlined"
-          size="large"
-        >
+        <Button disabled={activeStep === 0} onClick={handleBack} variant="outlined" size="large">
           Back
         </Button>
-        
+
         {activeStep === steps.length - 1 ? (
-          <Button
-            onClick={handleCreateShop}
-            variant="contained"
-            size="large"
-            disabled={isLoading}
-          >
+          <Button onClick={handleCreateShop} variant="contained" size="large" disabled={isLoading}>
             {isLoading ? 'Creating Shop...' : 'Create Shop'}
           </Button>
         ) : (
-          <Button
-            onClick={handleNext}
-            variant="contained"
-            size="large"
-          >
+          <Button onClick={handleNext} variant="contained" size="large">
             Next
           </Button>
         )}

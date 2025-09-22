@@ -216,7 +216,7 @@ export default function CreateShopSettingFrom() {
     setFieldValue(`${split.length > 1 ? split[1] : split[0]}File`, file);
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'my-uploads');
+    formData.append('upload_preset', 'nekimart');
     const config = {
       onUploadProgress: (progressEvent) => {
         const { loaded, total } = progressEvent;
@@ -225,7 +225,7 @@ export default function CreateShopSettingFrom() {
       }
     };
     await axios
-      .post(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+      .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
       .then(({ data }) => {
         setFieldValue(field, { _id: data.public_id, url: data.secure_url });
         setstate({ ...state, [`${split.length > 1 ? split[1] : split[0]}Loading`]: false });

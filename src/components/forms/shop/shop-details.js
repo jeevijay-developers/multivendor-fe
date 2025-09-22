@@ -22,7 +22,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
 
   return (
     <Box>
-      <Stack spacing={1}>
+      <Stack spacing={1} alignSelf={'center'} alignItems="center" textAlign="center">
         {isLoading ? (
           <Skeleton variant="circular" width={100} height={100} sx={{ mx: 2 }} />
         ) : (
@@ -60,14 +60,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                   onChange: handleNameChange,
                   error: Boolean(touched?.name && errors?.name),
                   helperText: touched?.name && errors?.name
-                })}
-              </Stack>
-              <Stack gap={1}>
-                {renderLabel('Slug')}
-                {renderTextField('slug', {
-                  ...getFieldProps('slug'),
-                  error: Boolean(touched?.slug && errors?.slug),
-                  helperText: touched?.slug && errors?.slug
                 })}
               </Stack>
               <Stack gap={1}>
@@ -138,15 +130,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
             }}
           >
             <Stack gap={3}>
-              <Stack gap={1}>
-                {renderLabel('Meta Title')}
-                {renderTextField('metaTitle', {
-                  ...getFieldProps('metaTitle'),
-                  error: Boolean(touched?.metaTitle && errors?.metaTitle),
-                  helperText: touched?.metaTitle && errors?.metaTitle
-                })}
-              </Stack>
-
               <Stack gap={1}>
                 {renderLabel('Shop Email')}
                 {renderTextField('shopEmail', {
@@ -221,23 +204,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
               {...getFieldProps('description')}
               error={Boolean(touched?.description && errors?.description)}
               helperText={touched?.description && errors?.description}
-            />
-          )}
-        </Stack>
-
-        <Stack gap={1}>
-          {renderLabel('Meta Description')}
-          {isLoading ? (
-            <Skeleton variant="rectangular" height={120} sx={{ borderRadius: 1 }} />
-          ) : (
-            <TextField
-              id="metaDescription"
-              fullWidth
-              multiline
-              rows={4}
-              {...getFieldProps('metaDescription')}
-              error={Boolean(touched?.metaDescription && errors?.metaDescription)}
-              helperText={touched?.metaDescription && errors?.metaDescription}
             />
           )}
         </Stack>

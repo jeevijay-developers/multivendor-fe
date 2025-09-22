@@ -110,9 +110,9 @@ export default function VariableProduct({
     const uploaders = acceptedFiles.map((file) => {
       const formData = new FormData();
       formData.append('file', file);
-      formData.append('upload_preset', 'my-uploads');
+      formData.append('upload_preset', 'nekimart');
       setFieldValue(`variants[${index}].blob`, values.blob.concat(acceptedFiles));
-      return axios.post(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`, formData);
+      return axios.post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData);
     });
 
     axios.all(uploaders).then((data) => {

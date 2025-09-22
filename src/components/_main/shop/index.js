@@ -31,6 +31,7 @@ import { updateUserRole } from '@/redux/slices/user';
 import * as api from 'src/services'; // adjust based on your actual path
 import IdentityVerificationForm from '@/components/forms/shop/identity-verification';
 import FinancialDetailsForm from '@/components/forms/shop/financial-details';
+import TwoStepShopForm from '@/components/forms/shop/two-step-shop-form';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 
 const STATUS_OPTIONS = ['pending', 'approved', 'in review', 'action required', 'cancel', 'closed'];
@@ -42,27 +43,30 @@ export default function ShopMain({ isShopLoading, shop, type }) {
   const isAdmin = type === 'admin';
   const [state, setstate] = useState({
     logoLoading: false,
-
     governmentIdLoading: false,
     proofOfAddressLoading: false,
     vendorAgreementLoading: false,
+    aadharCardLoading: false,
+    panCardLoading: false,
+    cancelChequeLoading: false,
     name: '',
     search: '',
     open: false
   });
 
   const { mutate, isPending: isLoading } = useMutation({
-    mutationFn: isAdmin ? api.updateShopByAdmin : isVendor ? api.updateShopByVendor : api.addShopByUser,
+    mutationFn: isAdmin ? api.updateShopByAdmin : isVendor ? api.updateShopByVendor : api.addShopByVendor,
     retry: false,
     onSuccess: () => {
       if (isCreatingShop) {
-        toast.success('Shop is under review!');
+        toast.success('🎉 Shop created successfully! Your shop is now under review.');
         dispatch(updateUserRole());
         router.push('/vendor/dashboard');
       } else if (isAdmin) {
-        toast.success('Shop updated!');
+        toast.success('✅ Shop updated successfully!');
         router.push('/admin/shops');
       } else {
+        toast.success('✅ Shop details updated successfully!');
         router.push('/vendor/shops');
       }
     },
@@ -71,15 +75,10 @@ export default function ShopMain({ isShopLoading, shop, type }) {
     }
   });
   const ShopSettingSchema = Yup.object().shape({
-    slug: Yup.string().required('Slug is required'),
     logo: Yup.object().required('Logo is required'),
 
     name: Yup.string().required('Shop name is required'),
-    metaTitle: Yup.string().max(100, 'Meta title cannot exceed 100 characters').required('Meta title is required'),
     description: Yup.string().max(500, 'Description cannot exceed 500 characters').required('Description is required'),
-    metaDescription: Yup.string()
-      .max(200, 'Meta description cannot exceed 200 characters')
-      .required('Meta description is required'),
     registrationNumber: Yup.string().required('Registration number is required'),
     address: Yup.object().shape({
       country: Yup.string().required('Country is required'),
@@ -99,6 +98,28 @@ export default function ShopMain({ isShopLoading, shop, type }) {
     identityVerification: Yup.object().shape({
       governmentId: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Image url is required') }),
       proofOfAddress: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Image url is required') })
+    }),
+    ownerDetails: Yup.object().shape({
+      aadharCardNumber: Yup.string()
+        .matches(/^[0-9]{12}$/, 'Aadhar card number must be exactly 12 digits')
+        .required('Aadhar card number is required'),
+      panNumber: Yup.string()
+        .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, 'PAN number must be in format ABCDE1234F')
+        .required('PAN number is required'),
+      ifscCode: Yup.string()
+        .matches(/^[A-Z]{4}0[A-Z0-9]{6}$/, 'IFSC code must be in valid format')
+        .required('IFSC code is required'),
+      gstNumber: Yup.string()
+        .matches(/^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$/, 'GST number must be in valid format')
+        .required('GST number is required'),
+      bankBranch: Yup.string().required('Bank branch is required'),
+      accountNumber: Yup.string()
+        .matches(/^[0-9]{9,18}$/, 'Account number must be between 9-18 digits')
+        .required('Account number is required'),
+      accountHolderName: Yup.string().required('Account holder name is required'),
+      aadharCard: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Aadhar card photo is required') }),
+      panCard: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('PAN card photo is required') }),
+      cancelCheque: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Cancel cheque photo is required') })
     }),
     operationalDetails: Yup.object().shape({ returnPolicy: Yup.string(), handlingTime: Yup.string() }),
     ...(isVendor && {
@@ -168,6 +189,18 @@ export default function ShopMain({ isShopLoading, shop, type }) {
         governmentId: isCreatingShop ? null : (shop?.identityVerification?.governmentId ?? null),
         proofOfAddress: isCreatingShop ? null : (shop?.identityVerification?.proofOfAddress ?? null)
       },
+      ownerDetails: {
+        aadharCardNumber: isCreatingShop ? '' : (shop?.ownerDetails?.aadharCardNumber ?? ''),
+        panNumber: isCreatingShop ? '' : (shop?.ownerDetails?.panNumber ?? ''),
+        ifscCode: isCreatingShop ? '' : (shop?.ownerDetails?.ifscCode ?? ''),
+        gstNumber: isCreatingShop ? '' : (shop?.ownerDetails?.gstNumber ?? ''),
+        bankBranch: isCreatingShop ? '' : (shop?.ownerDetails?.bankBranch ?? ''),
+        accountNumber: isCreatingShop ? '' : (shop?.ownerDetails?.accountNumber ?? ''),
+        accountHolderName: isCreatingShop ? '' : (shop?.ownerDetails?.accountHolderName ?? ''),
+        aadharCard: isCreatingShop ? null : (shop?.ownerDetails?.aadharCard ?? null),
+        panCard: isCreatingShop ? null : (shop?.ownerDetails?.panCard ?? null),
+        cancelCheque: isCreatingShop ? null : (shop?.ownerDetails?.cancelCheque ?? null)
+      },
       financialDetails: isVendor
         ? {
             paymentMethod: shop?.financialDetails?.paymentMethod ?? 'paypal',
@@ -188,6 +221,9 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       logoFile: isCreatingShop ? null : shop?.logo?.url,
       governmentIdFile: isCreatingShop ? null : (shop?.identityVerification?.governmentId ?? null),
       proofOfAddressFile: isCreatingShop ? '' : (shop?.identityVerification?.proofOfAddress ?? ''),
+      aadharCardFile: isCreatingShop ? null : (shop?.ownerDetails?.aadharCard ?? null),
+      panCardFile: isCreatingShop ? null : (shop?.ownerDetails?.panCard ?? null),
+      cancelChequeFile: isCreatingShop ? null : (shop?.ownerDetails?.cancelCheque ?? null),
       ...(isAdmin && {
         status: shop ? shop.status : STATUS_OPTIONS[0], // Only include message if shop exists
         message:
@@ -203,9 +239,13 @@ export default function ShopMain({ isShopLoading, shop, type }) {
         logoFile: _logoFile,
         governmentIdFile: _governmentIdFile,
         proofOfAddressFile: _proofOfAddressFile,
-
+        aadharCardFile: _aadharCardFile,
+        panCardFile: _panCardFile,
+        cancelChequeFile: _cancelChequeFile,
         ...rest
       } = values;
+
+      console.log('Form submission data:', rest);
 
       try {
         mutate({
@@ -215,7 +255,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
           ...rest
         });
       } catch (error) {
-        console.error(error);
+        console.error('Form submission error:', error);
       }
     }
   });
@@ -232,7 +272,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
     setFieldValue(`${split.length > 1 ? split[1] : split[0]}File`, file);
     const formData = new FormData();
     formData.append('file', file);
-    formData.append('upload_preset', 'my-uploads');
+    formData.append('upload_preset', 'nekimart');
     const config = {
       onUploadProgress: (progressEvent) => {
         const { loaded, total } = progressEvent;
@@ -241,7 +281,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       }
     };
     await axios
-      .post(`https://api.cloudinary.com/v1_1/${process.env.CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
+      .post(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/image/upload`, formData, config)
       .then(({ data }) => {
         setFieldValue(field, { _id: data.public_id, url: data.secure_url });
         setstate({ ...state, [`${split.length > 1 ? split[1] : split[0]}Loading`]: false });
@@ -271,42 +311,28 @@ export default function ShopMain({ isShopLoading, shop, type }) {
   return (
     <FormikProvider value={formik}>
       <Form noValidate autoComplete="off" onSubmit={handleSubmit}>
-        <Grid container spacing={2}>
-          <Grid
-            size={{
-              md: 8
-            }}
-          >
-            <Card>
-              <CardHeader
-                title={<>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Shop details'}</>}
-              />
-
-              <CardContent>
-                <ShopDetailsForm
-                  isLoading={isShopLoading}
-                  handleDrop={handleDrop}
-                  handleNameChange={handleNameChange}
-                  state={state}
-                  formik={formik}
-                />
-              </CardContent>
-            </Card>
-          </Grid>
-          <Grid
-            size={{
-              md: 4
-            }}
-          >
-            <Stack gap={2}>
+        {isCreatingShop ? (
+          <TwoStepShopForm
+            isLoading={isShopLoading}
+            handleDrop={handleDrop}
+            handleNameChange={handleNameChange}
+            state={state}
+            formik={formik}
+          />
+        ) : (
+          <Grid container spacing={2}>
+            <Grid
+              size={{
+                md: 8,
+              }}
+            >
               <Card>
                 <CardHeader
-                  title={
-                    <>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Identity Verification'}</>
-                  }
+                  title={<>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Shop details'}</>}
                 />
+
                 <CardContent>
-                  <IdentityVerificationForm
+                  <ShopDetailsForm
                     isLoading={isShopLoading}
                     handleDrop={handleDrop}
                     handleNameChange={handleNameChange}
@@ -315,91 +341,115 @@ export default function ShopMain({ isShopLoading, shop, type }) {
                   />
                 </CardContent>
               </Card>
-              {isVendor && (
+            </Grid>
+            <Grid
+              size={{
+                md: 4
+              }}
+            >
+              <Stack gap={2}>
                 <Card>
                   <CardHeader
                     title={
-                      <>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Financial Details'}</>
+                      <>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Identity Verification'}</>
                     }
                   />
                   <CardContent>
-                    <FinancialDetailsForm isLoading={isShopLoading} state={state} formik={formik} />
+                    <IdentityVerificationForm
+                      isLoading={isShopLoading}
+                      handleDrop={handleDrop}
+                      handleNameChange={handleNameChange}
+                      state={state}
+                      formik={formik}
+                    />
                   </CardContent>
                 </Card>
-              )}
-              {isAdmin && (
-                <Card>
-                  <CardContent>
-                    <Stack spacing={2}>
-                      <FormControl fullWidth sx={{ select: { textTransform: 'capitalize' } }}>
-                        <Stack gap={1}>
-                          {isShopLoading ? (
-                            <Skeleton variant="text" width={70} />
-                          ) : (
-                            <Typography variant="overline" component={'label'} htmlFor="status">
-                              Status
-                            </Typography>
+                {isVendor && (
+                  <Card>
+                    <CardHeader
+                      title={
+                        <>{isShopLoading ? <Skeleton variant="text" height={28} width={240} /> : 'Financial Details'}</>
+                      }
+                    />
+                    <CardContent>
+                      <FinancialDetailsForm isLoading={isShopLoading} state={state} formik={formik} />
+                    </CardContent>
+                  </Card>
+                )}
+                {isAdmin && (
+                  <Card>
+                    <CardContent>
+                      <Stack spacing={2}>
+                        <FormControl fullWidth sx={{ select: { textTransform: 'capitalize' } }}>
+                          <Stack gap={1}>
+                            {isShopLoading ? (
+                              <Skeleton variant="text" width={70} />
+                            ) : (
+                              <Typography variant="overline" component={'label'} htmlFor="status">
+                                Status
+                              </Typography>
+                            )}
+                            {isShopLoading ? (
+                              <Skeleton variant="rectangular" width="100%" height={56} />
+                            ) : (
+                              <Select
+                                id="status"
+                                native
+                                {...getFieldProps('status')}
+                                error={Boolean(touched.status && errors.status)}
+                              >
+                                <option value="" style={{ display: 'none' }} />
+                                {STATUS_OPTIONS.map((status) => (
+                                  <option key={status} value={status}>
+                                    {status}
+                                  </option>
+                                ))}
+                              </Select>
+                            )}
+                          </Stack>
+                          {touched.status && errors.status && (
+                            <FormHelperText error sx={{ px: 2, mx: 0 }}>
+                              {touched.status && errors.status}
+                            </FormHelperText>
                           )}
-                          {isShopLoading ? (
-                            <Skeleton variant="rectangular" width="100%" height={56} />
-                          ) : (
-                            <Select
-                              id="status"
-                              native
-                              {...getFieldProps('status')}
-                              error={Boolean(touched.status && errors.status)}
-                            >
-                              <option value="" style={{ display: 'none' }} />
-                              {STATUS_OPTIONS.map((status) => (
-                                <option key={status} value={status}>
-                                  {status}
-                                </option>
-                              ))}
-                            </Select>
-                          )}
-                        </Stack>
-                        {touched.status && errors.status && (
-                          <FormHelperText error sx={{ px: 2, mx: 0 }}>
-                            {touched.status && errors.status}
-                          </FormHelperText>
+                        </FormControl>
+                        {(values.status === 'cancel' ||
+                          values.status === 'closed' ||
+                          values.status === 'action required') && (
+                          <Stack gap={1}>
+                            {isShopLoading ? (
+                              <Skeleton variant="text" width={150} />
+                            ) : (
+                              <Typography variant="overline" component={'label'} htmlFor="message">
+                                Message
+                              </Typography>
+                            )}
+                            {isShopLoading ? (
+                              <Skeleton variant="rectangular" width="100%" height={240} />
+                            ) : (
+                              <TextField
+                                id="message"
+                                fullWidth
+                                {...getFieldProps('message')}
+                                error={Boolean(touched.message && errors.message)}
+                                helperText={touched.message && errors.message}
+                                rows={4}
+                                multiline
+                              />
+                            )}
+                          </Stack>
                         )}
-                      </FormControl>
-                      {(values.status === 'cancel' ||
-                        values.status === 'closed' ||
-                        values.status === 'action required') && (
-                        <Stack gap={1}>
-                          {isShopLoading ? (
-                            <Skeleton variant="text" width={150} />
-                          ) : (
-                            <Typography variant="overline" component={'label'} htmlFor="message">
-                              Message
-                            </Typography>
-                          )}
-                          {isShopLoading ? (
-                            <Skeleton variant="rectangular" width="100%" height={240} />
-                          ) : (
-                            <TextField
-                              id="message"
-                              fullWidth
-                              {...getFieldProps('message')}
-                              error={Boolean(touched.message && errors.message)}
-                              helperText={touched.message && errors.message}
-                              rows={4}
-                              multiline
-                            />
-                          )}
-                        </Stack>
-                      )}
-                    </Stack>
-                  </CardContent>
-                </Card>
-              )}
-              <Button type="submit" variant="contained" fullWidth size="large" loading={isLoading}>
-                {isCreatingShop ? 'Create Shop' : 'Update Shop'}
-              </Button>
-            </Stack>
+                      </Stack>
+                    </CardContent>
+                  </Card>
+                )}
+                <Button type="submit" variant="contained" fullWidth size="large" loading={isLoading}>
+                  {isCreatingShop ? 'Create Shop' : 'Update Shop'}
+                </Button>
+              </Stack>
+            </Grid>
           </Grid>
-        </Grid>
+        )}
       </Form>
     </FormikProvider>
   );

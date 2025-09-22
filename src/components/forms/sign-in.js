@@ -79,7 +79,7 @@ export default function SignInForm() {
   const { errors, touched, setFieldValue, values, handleSubmit, getFieldProps } = formik;
   return (
     <>
-      <Stack mb={3} gap={2} sx={{ '& .MuiAlert-action': { alignItems: 'center' } }}>
+      {/* <Stack mb={3} gap={2} sx={{ '& .MuiAlert-action': { alignItems: 'center' } }}>
         <Alert
           severity="primary"
           action={
@@ -116,7 +116,7 @@ export default function SignInForm() {
           <AlertTitle>Vendor</AlertTitle>
           <b>Email:</b> vendor@nextall.com | <b>password:</b> test1234
         </Alert>
-      </Stack>
+      </Stack> */}
 
       <FormikProvider value={formik}>
         <Form autoComplete="off" noValidate onSubmit={handleSubmit}>
@@ -128,6 +128,7 @@ export default function SignInForm() {
               <TextField
                 id="email"
                 fullWidth
+                placeholder='example@domain.com'
                 autoComplete="username"
                 type="email"
                 {...getFieldProps('email')}
@@ -150,6 +151,7 @@ export default function SignInForm() {
               <TextField
                 id="password"
                 fullWidth
+                placeholder='**********'
                 autoComplete="current-password"
                 type={showPassword ? 'text' : 'password'}
                 {...getFieldProps('password')}

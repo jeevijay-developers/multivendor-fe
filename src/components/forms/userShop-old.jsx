@@ -81,17 +81,12 @@ export default function CreateShopSettingFrom() {
     logo: Yup.object().required('Logo is required'),
 
     name: Yup.string().required('Shop name is required'),
-    metaTitle: Yup.string().max(100, 'Meta title cannot exceed 100 characters').required('Meta title is required'),
-    description: Yup.string().max(500, 'Description cannot exceed 500 characters').required('Description is required'),
-    metaDescription: Yup.string()
-      .max(200, 'Meta description cannot exceed 200 characters')
-      .required('Meta description is required'),
-    registrationNumber: Yup.string().required('Registration number is required'),
+  // registrationNumber removed
     address: Yup.object().shape({
       country: Yup.string().required('Country is required'),
       city: Yup.string().required('City is required'),
       state: Yup.string().required('State is required'),
-      streetAddress: Yup.string().required('Street address is required')
+      streetAddress: Yup.string().optional(),
     }),
     contactPerson: Yup.string(),
     shopEmail: Yup.string().email('Invalid email').required('Shop email is required'),
@@ -99,11 +94,11 @@ export default function CreateShopSettingFrom() {
     website: Yup.string().url('Invalid URL'),
 
     financialDetails: Yup.object().shape({
-      paymentMethod: Yup.string().oneOf(['paypal', 'bank']).required('Payment method is required'),
+      paymentMethod: Yup.string().oneOf(['paypal', 'bank']).optional(),
       paypal: Yup.object().shape({
         email: Yup.string()
           .email('Invalid email')
-          .when('paymentMethod', { is: 'paypal', then: Yup.string().required('PayPal email is required') })
+          .when('paymentMethod', { is: 'paypal', then: Yup.string().optional() })
       }),
       bank: Yup.object().shape({
         accountNumber: Yup.string().when('paymentMethod', {
@@ -125,21 +120,15 @@ export default function CreateShopSettingFrom() {
         routingNumber: Yup.string(),
         swiftCode: Yup.string()
       }),
-      taxIdentificationNumber: Yup.string().required('Tax identification number is required'),
-      vatRegistrationNumber: Yup.string()
-    }),
-    identityVerification: Yup.object().shape({
-      governmentId: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Image url is required') }),
-      proofOfAddress: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Image url is required') })
     }),
     operationalDetails: Yup.object().shape({ returnPolicy: Yup.string(), handlingTime: Yup.string() }),
     legalAgreements: Yup.object().shape({
       termsAndConditions: Yup.string(),
-      vendorAgreement: Yup.object().shape({ url: Yup.string().url('Invalid URL').required('Image url is required') })
+      vendorAgreement: Yup.object().shape({ url: Yup.string().url('Invalid URL').optional() })
     }),
     customerSupport: Yup.object().shape({
-      supportContact: Yup.string().required('Support contact is required'),
-      supportHours: Yup.string().required('Support hours are required')
+      supportContact: Yup.string().optional(),
+      supportHours: Yup.string().optional()
     })
   });
 
@@ -152,7 +141,7 @@ export default function CreateShopSettingFrom() {
       metaTitle: '',
       description: '',
       metaDescription: '',
-      registrationNumber: '',
+  // registrationNumber removed
       address: { country: '', city: '', state: '', streetAddress: '' },
       contactPerson: '',
       shopEmail: '',
@@ -171,8 +160,6 @@ export default function CreateShopSettingFrom() {
           routingNumber: '',
           swiftCode: ''
         },
-        taxIdentificationNumber: '',
-        vatRegistrationNumber: ''
       },
       identityVerification: { governmentId: null, proofOfAddress: null },
       operationalDetails: { returnPolicy: '', handlingTime: 0 },
@@ -327,7 +314,7 @@ export default function CreateShopSettingFrom() {
                     <Box sx={{ width: '100%' }}>
                       <div>
                         <LabelStyle component={'label'} htmlFor="title">
-                          Shop name
+                          Name  of Supplier
                         </LabelStyle>
 
                         <TextField
@@ -368,21 +355,7 @@ export default function CreateShopSettingFrom() {
                           helperText={touched?.contactPerson && errors?.contactPerson}
                         />
                       </div>
-                      <div>
-                        <LabelStyle component={'label'} htmlFor="registrationNumber">
-                          {' '}
-                          {'Registration Number'}
-                        </LabelStyle>
-
-                        <TextField
-                          fullWidth
-                          id="registrationNumber"
-                          type="number"
-                          {...getFieldProps('registrationNumber')}
-                          error={Boolean(touched?.registrationNumber && errors?.registrationNumber)}
-                          helperText={touched?.registrationNumber && errors?.registrationNumber}
-                        />
-                      </div>
+                      {/* Registration Number removed */}
                       <div>
                         <LabelStyle component={'label'} htmlFor="country">
                           Country
@@ -742,42 +715,6 @@ export default function CreateShopSettingFrom() {
                           </>
                         </Collapse>
                         <div>
-                          <LabelStyle component={'label'} htmlFor="account-number">
-                            TAX Identification Number
-                          </LabelStyle>
-
-                          <TextField
-                            id="account-number"
-                            fullWidth
-                            {...getFieldProps('financialDetails.taxIdentificationNumber')}
-                            error={Boolean(
-                              touched.financialDetails?.taxIdentificationNumber &&
-                                errors.financialDetails?.taxIdentificationNumber
-                            )}
-                            helperText={
-                              touched.financialDetails?.taxIdentificationNumber &&
-                              errors.financialDetails?.taxIdentificationNumber
-                            }
-                          />
-                        </div>
-                        <div>
-                          <LabelStyle component={'label'} htmlFor="account-number">
-                            VAT Registration Number
-                          </LabelStyle>
-
-                          <TextField
-                            id="account-number"
-                            fullWidth
-                            {...getFieldProps('financialDetails.vatRegistrationNumber')}
-                            error={Boolean(
-                              touched.financialDetails?.vatRegistrationNumber &&
-                                errors.financialDetails?.vatRegistrationNumber
-                            )}
-                            helperText={
-                              touched.financialDetails?.vatRegistrationNumber &&
-                              errors.financialDetails?.vatRegistrationNumber
-                            }
-                          />
                         </div>
                       </Stack>
                     </CardContent>

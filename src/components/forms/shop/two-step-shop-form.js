@@ -16,9 +16,7 @@ import {
 
 import ShopDetailsForm from './shop-details';
 import OwnerDetailsForm from './owner-details';
-import IdentityVerificationForm from './identity-verification';
-
-const steps = ['Shop Information', 'Identity Verification', 'Owner Details'];
+const steps = ['Shop Information', 'Owner Details'];
 
 export default function TwoStepShopForm({ handleDrop, formik, state, handleNameChange, isLoading }) {
   const [activeStep, setActiveStep] = useState(0);
@@ -31,7 +29,7 @@ export default function TwoStepShopForm({ handleDrop, formik, state, handleNameC
           'logo',
           'name',
           'description',
-          'registrationNumber',
+          // registrationNumber removed
           'address.country',
           'address.city',
           'address.state',
@@ -40,8 +38,6 @@ export default function TwoStepShopForm({ handleDrop, formik, state, handleNameC
           'shopEmail',
           'shopPhone',
           'website',
-          'taxIdentificationNumber',
-          'vatRegistrationNumber'
         ];
       case 1:
         return ['identityVerification.governmentId', 'identityVerification.proofOfAddress'];
@@ -133,9 +129,7 @@ export default function TwoStepShopForm({ handleDrop, formik, state, handleNameC
           />
         );
       case 1:
-        return <IdentityVerificationForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
-      case 2:
-        return <OwnerDetailsForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
+        return  <OwnerDetailsForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
       default:
         return null;
     }

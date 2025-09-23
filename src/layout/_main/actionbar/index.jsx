@@ -79,9 +79,9 @@ export default function Navbar({ categories }) {
           </Button>
 
           <Stack gap={2} direction="row">
-            {navlinks.map((item) => (
+            {navlinks.map((item, i) => (
               <Typography
-                key={item.title}
+                key={i}
                 variant="subtitle1"
                 color="common.white"
                 component={Link}

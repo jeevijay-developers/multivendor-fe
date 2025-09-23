@@ -54,7 +54,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
           >
             <Stack gap={3}>
               <Stack gap={1}>
-                {renderLabel('Shop Name')}
+                {renderLabel('Name of Supplier')}
                 {renderTextField('name', {
                   ...getFieldProps('name'),
                   onChange: handleNameChange,
@@ -71,12 +71,26 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                 })}
               </Stack>
               <Stack gap={1}>
-                {renderLabel('Registration Number')}
-                {renderTextField('registrationNumber', {
-                  ...getFieldProps('registrationNumber'),
-                  error: Boolean(touched?.registrationNumber && errors?.registrationNumber),
-                  helperText: touched?.registrationNumber && errors?.registrationNumber
-                })}
+                {renderLabel('State of Supplier')}
+                {isLoading ? (
+                  <Skeleton variant="rectangular" height={56} sx={{ borderRadius: 1 }} />
+                ) : (
+                  <TextField
+                    id="stateOfSupplier"
+                    select
+                    fullWidth
+                    {...getFieldProps('stateOfSupplier')}
+                    SelectProps={{ native: true }}
+                    error={Boolean(touched?.stateOfSupplier && errors?.stateOfSupplier)}
+                    helperText={touched?.stateOfSupplier && errors?.stateOfSupplier}
+                  >
+                    <option value="">Select State of Supplier</option>
+                    <option value="Individual">Individual</option>
+                    <option value="Partnership Firm">Partnership Firm</option>
+                    <option value="Private Limited Company (Pvt Ltd)">Private Limited Company (Pvt Ltd)</option>
+                    <option value="Limited Liability Partnership (LLP)">Limited Liability Partnership (LLP)</option>
+                  </TextField>
+                )}
               </Stack>
 
               <Stack gap={1}>
@@ -111,14 +125,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                   helperText: touched?.address?.city && errors?.address?.city
                 })}
               </Stack>
-              <Stack gap={1}>
-                {renderLabel('VAT Registration Number')}
-                {renderTextField('vatRegistrationNumber', {
-                  ...getFieldProps('vatRegistrationNumber'),
-                  error: Boolean(touched?.vatRegistrationNumber && errors?.vatRegistrationNumber),
-                  helperText: touched?.vatRegistrationNumber && errors?.vatRegistrationNumber
-                })}
-              </Stack>
             </Stack>
           </Grid>
 
@@ -131,7 +137,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
           >
             <Stack gap={3}>
               <Stack gap={1}>
-                {renderLabel('Shop Email')}
+                {renderLabel('Supplier Email')}
                 {renderTextField('shopEmail', {
                   ...getFieldProps('shopEmail'),
                   error: Boolean(touched?.shopEmail && errors?.shopEmail),
@@ -140,7 +146,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
               </Stack>
 
               <Stack gap={1}>
-                {renderLabel('Shop Phone')}
+                {renderLabel('Supplier Phone')}
                 {isLoading ? (
                   <Skeleton variant="rounded" height={56} width="100%" />
                 ) : (
@@ -176,15 +182,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                   ...getFieldProps('address.streetAddress'),
                   error: Boolean(touched?.address?.streetAddress && errors?.address?.streetAddress),
                   helperText: touched?.address?.streetAddress && errors?.address?.streetAddress
-                })}
-              </Stack>
-
-              <Stack gap={1}>
-                {renderLabel('TAX Identification Number')}
-                {renderTextField('taxIdentificationNumber', {
-                  ...getFieldProps('taxIdentificationNumber'),
-                  error: Boolean(touched?.taxIdentificationNumber && errors?.taxIdentificationNumber),
-                  helperText: touched?.taxIdentificationNumber && errors?.taxIdentificationNumber
                 })}
               </Stack>
             </Stack>

@@ -27,7 +27,7 @@ export default function NestedList({ data, isLoading, onClose }) {
           const parentKey = `parent-${i}`;
           return (
             <Box
-              key={parentCategory.label}
+              key={i}
               onMouseEnter={() => {
                 if (parentCategory.subCategories?.length > 0) {
                   setOpenParent(parentKey);
@@ -95,7 +95,7 @@ export default function NestedList({ data, isLoading, onClose }) {
 
                     return (
                       <Box
-                        key={subCategory.label}
+                        key={childKey}
                         onMouseEnter={() => {
                           if (hasGrandchildren) {
                             setOpenChildren((prev) => ({ ...prev, [childKey]: true }));

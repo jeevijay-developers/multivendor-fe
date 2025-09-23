@@ -59,6 +59,26 @@ export default function ShopMain({ isShopLoading, shop, type }) {
     mutationFn: isAdmin ? api.updateShopByAdmin : isVendor ? api.updateShopByVendor : api.addShopByVendor,
     retry: false,
     onSuccess: () => {
+      // Reset all fields and upload state after successful submission
+      try {
+        if (typeof formik?.resetForm === 'function') {
+          formik.resetForm();
+        }
+        setstate({
+          logoLoading: false,
+          governmentIdLoading: false,
+          proofOfAddressLoading: false,
+          vendorAgreementLoading: false,
+          letterOfAuthorityLoading: false,
+          aadharCardFrontLoading: false,
+          aadharCardBackLoading: false,
+          panCardLoading: false,
+          cancelChequeLoading: false,
+          name: '',
+          search: '',
+          open: false
+        });
+      } catch (_) {}
       if (isCreatingShop) {
         toast.success('🎉 Shop created successfully! Your shop is now under review.');
         dispatch(updateUserRole());

@@ -73,7 +73,7 @@ export default function WomanEmpowerSection() {
           </Paper>
 
           {/* About Women Section */}
-          <Grid container spacing={6} alignItems="center">
+          <Grid container spacing={6} alignItems="center" justifyContent={"center"}>
             <Grid item xs={12} md={6}>
               <Stack spacing={3} sx={{ textAlign: 'center' }}>
                 <Stack direction="row" alignItems="center" justifyContent="center" spacing={2}>
@@ -86,7 +86,7 @@ export default function WomanEmpowerSection() {
                   sx={{
                     height: 4,
                     width: 96,
-                    // background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.info.main})`,
+                    background: `linear-gradient(90deg, ${theme.palette.primary.main}, ${theme.palette.info.main})`,
                     borderRadius: 2,
                     margin: '0 auto',
                   }}
@@ -229,7 +229,7 @@ export default function WomanEmpowerSection() {
 
           {/* YouTube Video Section */}
           <Stack spacing={4}>
-            <Box sx={{ textAlign: 'center' }}>
+            <Box sx={{ textAlign: 'center', justifyContent: 'center' }}>
               <Typography variant="h3" component="h3" fontWeight="bold" gutterBottom>
                 Discover Nekimart
               </Typography>

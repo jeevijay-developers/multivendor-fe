@@ -14,6 +14,7 @@ import Shops from 'src/components/_main/home/shop';
 import Campaigns from 'src/components/_main/home/campaign';
 import Testimonials from 'src/components/_main/home/testimonials';
 import FeaturedProducts from 'src/components/_main/home/featured';
+import WomanEmpowerSection from 'src/components/_main/home/womanEmpower';
 // const SubscriptionModal = dynamic(() => import('src/components/_main/home/subscription'), { ssr: false });
 
 // API services (direct fetch here or via service layer)
@@ -87,6 +88,12 @@ export default async function IndexPage() {
         <Shops /> {/* Assuming shops are static or load separately */}
         <FeaturedProducts data={featuredProducts?.data || []} />
       </Container>
+      
+      <Container maxWidth="xl">
+      {/* Woman Empowerment Section */}
+      <WomanEmpowerSection />
+      </Container>
+      
       {Boolean(reviews?.data.length) && <Testimonials data={reviews?.data} />}
 
       <Container maxWidth="xl">

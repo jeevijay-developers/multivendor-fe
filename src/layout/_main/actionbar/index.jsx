@@ -14,6 +14,7 @@ import MenuDesktopList from 'src/components/lists/menuDesktopList';
 
 const navlinks = [
   { title: 'Home', path: '/' },
+  { title: 'Shop', path: '/home' },
   { title: 'Products', path: '/products' },
   { title: 'Brands', path: '/brands' },
   { title: 'Shops', path: '/shops' },

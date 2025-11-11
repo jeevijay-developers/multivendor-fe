@@ -24,10 +24,10 @@ export default function NestedList({ data, isLoading, onClose }) {
     <Box>
       <List sx={{ width: 280, bgcolor: 'background.paper', px: '16px' }} component="nav">
         {(isLoading ? [] : data)?.map((parentCategory, i) => {
-          const parentKey = `parent-${i}`;
+          const parentKey = `parent-${parentCategory.slug || i}`;
           return (
             <Box
-              key={parentCategory.label}
+              key={parentCategory.slug || parentCategory.id || i}
               onMouseEnter={() => {
                 if (parentCategory.subCategories?.length > 0) {
                   setOpenParent(parentKey);
@@ -91,11 +91,11 @@ export default function NestedList({ data, isLoading, onClose }) {
                   />
                   {parentCategory.subCategories.map((subCategory, j) => {
                     const hasGrandchildren = subCategory.childCategories?.length > 0;
-                    const childKey = `${parentKey}-child-${j}`;
+                    const childKey = `${parentKey}-child-${subCategory.slug || subCategory.id || j}`;
 
                     return (
                       <Box
-                        key={subCategory.label}
+                        key={subCategory.slug || subCategory.id || j}
                         onMouseEnter={() => {
                           if (hasGrandchildren) {
                             setOpenChildren((prev) => ({ ...prev, [childKey]: true }));
@@ -176,7 +176,7 @@ export default function NestedList({ data, isLoading, onClose }) {
                               />
                               {subCategory.childCategories.map((childCategory, k) => (
                                 <Box
-                                  key={k}
+                                  key={childCategory.slug || childCategory.id || k}
                                   sx={{
                                     display: 'flex',
                                     flexDirection: 'column',

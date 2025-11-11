@@ -245,9 +245,9 @@ export default function Search({ ...props }) {
                 }}
                 autoFocusItem={!focus}
               >
-                {(isLoading ? Array.from(new Array(mobile ? 6 : 8)) : state.products).map((product) => (
+                {(isLoading ? Array.from(new Array(mobile ? 6 : 8)) : state.products).map((product, i) => (
                   <MenuItem
-                    key={product?._id}
+                    key={i}
                     className={Boolean(state.selected.filter((v) => v._id === product?._id)?.length) ? 'active' : ''}
                     onClick={() => {
                       if (!isLoading) handleListItemClick(multiSelect ? product : product?.slug);

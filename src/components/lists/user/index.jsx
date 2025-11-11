@@ -104,32 +104,32 @@ export default function UserList({ ...props }) {
           Become a seller
         </MenuItem>
       )}
-      {!isNotUser && (
-        <>
-          <MenuItem
-            onClick={() => {
-              setOpen(false);
-              router.push('/profile/wishlist');
-            }}
-          >
-            <ListItemIcon className="menu-icon">
-              <IoIosHeartEmpty />
-            </ListItemIcon>
-            Wishlist
-          </MenuItem>
-          <MenuItem
-            onClick={() => {
-              setOpen(false);
-              router.push('/profile/orders');
-            }}
-          >
-            <ListItemIcon className="menu-icon">
-              <LiaFileInvoiceSolid />
-            </ListItemIcon>
-            Orders
-          </MenuItem>
-        </>
-      )}
+      {!isNotUser && [
+        <MenuItem
+          key="wishlist"
+          onClick={() => {
+            setOpen(false);
+            router.push('/profile/wishlist');
+          }}
+        >
+          <ListItemIcon className="menu-icon">
+            <IoIosHeartEmpty />
+          </ListItemIcon>
+          Wishlist
+        </MenuItem>,
+        <MenuItem
+          key="orders"
+          onClick={() => {
+            setOpen(false);
+            router.push('/profile/orders');
+          }}
+        >
+          <ListItemIcon className="menu-icon">
+            <LiaFileInvoiceSolid />
+          </ListItemIcon>
+          Orders
+        </MenuItem>
+      ]}
 
       <MenuItem
         onClick={() => {

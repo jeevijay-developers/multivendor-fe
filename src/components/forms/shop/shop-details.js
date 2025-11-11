@@ -22,7 +22,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
 
   return (
     <Box>
-      <Stack spacing={1}>
+      <Stack spacing={1} alignSelf={'center'} alignItems="center" textAlign="center">
         {isLoading ? (
           <Skeleton variant="circular" width={100} height={100} sx={{ mx: 2 }} />
         ) : (
@@ -54,20 +54,12 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
           >
             <Stack gap={3}>
               <Stack gap={1}>
-                {renderLabel('Shop Name')}
+                {renderLabel('Name of Supplier')}
                 {renderTextField('name', {
                   ...getFieldProps('name'),
                   onChange: handleNameChange,
                   error: Boolean(touched?.name && errors?.name),
                   helperText: touched?.name && errors?.name
-                })}
-              </Stack>
-              <Stack gap={1}>
-                {renderLabel('Slug')}
-                {renderTextField('slug', {
-                  ...getFieldProps('slug'),
-                  error: Boolean(touched?.slug && errors?.slug),
-                  helperText: touched?.slug && errors?.slug
                 })}
               </Stack>
               <Stack gap={1}>
@@ -79,12 +71,26 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                 })}
               </Stack>
               <Stack gap={1}>
-                {renderLabel('Registration Number')}
-                {renderTextField('registrationNumber', {
-                  ...getFieldProps('registrationNumber'),
-                  error: Boolean(touched?.registrationNumber && errors?.registrationNumber),
-                  helperText: touched?.registrationNumber && errors?.registrationNumber
-                })}
+                {renderLabel('State of Supplier')}
+                {isLoading ? (
+                  <Skeleton variant="rectangular" height={56} sx={{ borderRadius: 1 }} />
+                ) : (
+                  <TextField
+                    id="stateOfSupplier"
+                    select
+                    fullWidth
+                    {...getFieldProps('stateOfSupplier')}
+                    SelectProps={{ native: true }}
+                    error={Boolean(touched?.stateOfSupplier && errors?.stateOfSupplier)}
+                    helperText={touched?.stateOfSupplier && errors?.stateOfSupplier}
+                  >
+                    <option value="">Select State of Supplier</option>
+                    <option value="Individual">Individual</option>
+                    <option value="Partnership Firm">Partnership Firm</option>
+                    <option value="Private Limited Company (Pvt Ltd)">Private Limited Company (Pvt Ltd)</option>
+                    <option value="Limited Liability Partnership (LLP)">Limited Liability Partnership (LLP)</option>
+                  </TextField>
+                )}
               </Stack>
 
               <Stack gap={1}>
@@ -119,14 +125,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                   helperText: touched?.address?.city && errors?.address?.city
                 })}
               </Stack>
-              <Stack gap={1}>
-                {renderLabel('VAT Registration Number')}
-                {renderTextField('vatRegistrationNumber', {
-                  ...getFieldProps('vatRegistrationNumber'),
-                  error: Boolean(touched?.vatRegistrationNumber && errors?.vatRegistrationNumber),
-                  helperText: touched?.vatRegistrationNumber && errors?.vatRegistrationNumber
-                })}
-              </Stack>
             </Stack>
           </Grid>
 
@@ -139,16 +137,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
           >
             <Stack gap={3}>
               <Stack gap={1}>
-                {renderLabel('Meta Title')}
-                {renderTextField('metaTitle', {
-                  ...getFieldProps('metaTitle'),
-                  error: Boolean(touched?.metaTitle && errors?.metaTitle),
-                  helperText: touched?.metaTitle && errors?.metaTitle
-                })}
-              </Stack>
-
-              <Stack gap={1}>
-                {renderLabel('Shop Email')}
+                {renderLabel('Supplier Email')}
                 {renderTextField('shopEmail', {
                   ...getFieldProps('shopEmail'),
                   error: Boolean(touched?.shopEmail && errors?.shopEmail),
@@ -157,7 +146,7 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
               </Stack>
 
               <Stack gap={1}>
-                {renderLabel('Shop Phone')}
+                {renderLabel('Supplier Phone')}
                 {isLoading ? (
                   <Skeleton variant="rounded" height={56} width="100%" />
                 ) : (
@@ -195,15 +184,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
                   helperText: touched?.address?.streetAddress && errors?.address?.streetAddress
                 })}
               </Stack>
-
-              <Stack gap={1}>
-                {renderLabel('TAX Identification Number')}
-                {renderTextField('taxIdentificationNumber', {
-                  ...getFieldProps('taxIdentificationNumber'),
-                  error: Boolean(touched?.taxIdentificationNumber && errors?.taxIdentificationNumber),
-                  helperText: touched?.taxIdentificationNumber && errors?.taxIdentificationNumber
-                })}
-              </Stack>
             </Stack>
           </Grid>
         </Grid>
@@ -221,23 +201,6 @@ export default function ShopDetailsForm({ handleDrop, formik, state, handleNameC
               {...getFieldProps('description')}
               error={Boolean(touched?.description && errors?.description)}
               helperText={touched?.description && errors?.description}
-            />
-          )}
-        </Stack>
-
-        <Stack gap={1}>
-          {renderLabel('Meta Description')}
-          {isLoading ? (
-            <Skeleton variant="rectangular" height={120} sx={{ borderRadius: 1 }} />
-          ) : (
-            <TextField
-              id="metaDescription"
-              fullWidth
-              multiline
-              rows={4}
-              {...getFieldProps('metaDescription')}
-              error={Boolean(touched?.metaDescription && errors?.metaDescription)}
-              helperText={touched?.metaDescription && errors?.metaDescription}
             />
           )}
         </Stack>

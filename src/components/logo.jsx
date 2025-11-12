@@ -20,7 +20,7 @@ const Logo = ({ branding }) => {
       }}
     >
       <Image
-        src={`/logo-light.svg`}
+        src={`/logo-light.png`}
         alt="Logo"
         height={56}
         width={200} // Will be overridden by aspect ratio automatically

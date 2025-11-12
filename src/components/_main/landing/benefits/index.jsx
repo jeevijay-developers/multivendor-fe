@@ -29,13 +29,15 @@ export default function Benefits() {
     <Box
       sx={{
         bgcolor: '#3277d0',
-        py: { xs: 8, md: 12 }
+        py: { xs: 8, md: 12 },
+        position: 'relative',
+        overflow: 'hidden'
       }}
     >
       <Container maxWidth="xl">
         <Grid container spacing={6} alignItems="center" justifyContent="center">
-          <Grid item xs={12} md={6}>
-            <Stack spacing={4}>
+          <Grid item xs={12} md={7}>
+            <Stack spacing={4} position="relative" zIndex={1}>
               <Typography
                 variant="h2"
                 sx={{
@@ -71,53 +73,56 @@ export default function Benefits() {
                 ))}
               </List>
               <Button
-                component={Link}
-                href="/home"
-                variant="contained"
-                size="large"
-                startIcon={<FaShoppingBag />}
-                endIcon={<FaArrowRight />}
-                sx={{
-                  alignSelf: 'flex-start',
-                  px: 4,
-                  py: 1.5,
-                  fontSize: '1.1rem',
-                  fontWeight: 600,
-                  bgcolor: 'white',
-                  color: '#3277d0',
-                  '&:hover': {
-                    bgcolor: 'rgba(255,255,255,0.9)',
-                    transform: 'translateY(-2px)',
-                    boxShadow: 'none'
-                  }
-                }}
-              >
-                Shop Now
-              </Button>
+                  component={Link}
+                  href="/home"
+                  variant="contained"
+                  size="medium"
+                  startIcon={<FaShoppingBag />}
+                  endIcon={<FaArrowRight />}
+                  sx={{
+                    bgcolor: 'white',
+                    color: '#3277d0',
+                    px: 3,
+                    py: 1.2,
+                    fontSize: '1rem',
+                    fontWeight: 600,
+                    boxShadow: 'none',
+                    width: 'fit-content',
+                    '&:hover': {
+                      bgcolor: 'rgba(255,255,255,0.9)',
+                      transform: 'translateY(-3px)',
+                      boxShadow: 'none'
+                    }
+                  }}
+                >
+                  Shop Now
+                </Button>
             </Stack>
           </Grid>
-          <Grid item xs={12} md={6}>
+
+          <Grid item xs={12} md={5}>
             <Box
               sx={{
                 width: '100%',
-                height: { xs: 350, md: 500 },
-                bgcolor: 'rgba(255,255,255,0.1)',
+                height: { xs: 300, md: 450 },
                 borderRadius: 3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '3px dashed rgba(255,255,255,0.3)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
               }}
             >
-              <Typography variant="h5" color="white" textAlign="center" px={3} fontWeight={600}>
-                [Women Listing Products Image]
-                <br />
-                <Typography variant="body2" color="rgba(255,255,255,0.8)" mt={1}>
-                  Add an image of women listing their products
-                </Typography>
-              </Typography>
+              <Box
+                component="img"
+                src="/product.png"
+                alt="Women listing products"
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block'
+                }}
+              />
             </Box>
           </Grid>
         </Grid>

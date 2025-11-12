@@ -16,7 +16,7 @@ export default function JoinMovement() {
       }}
     >
       <Container maxWidth="xl">
-        <Grid container spacing={6} alignItems="center">
+        <Grid container spacing={6} alignItems="center" justifyContent="center">
           <Grid item xs={12} md={7}>
             <Stack spacing={4} position="relative" zIndex={1}>
               <Typography
@@ -129,23 +129,24 @@ export default function JoinMovement() {
               sx={{
                 width: '100%',
                 height: { xs: 300, md: 450 },
-                bgcolor: 'rgba(50, 119, 208, 0.1)',
                 borderRadius: 3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '3px dashed rgba(50, 119, 208, 0.3)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
               }}
             >
-              <Typography variant="h5" color="text.disabled" textAlign="center" px={3} fontWeight={600}>
-                [Call to Action Image]
-                <br />
-                <Typography variant="body2" color="text.disabled" mt={1}>
-                  Add a powerful CTA section image
-                </Typography>
-              </Typography>
+              <Box
+                component="img"
+                src="/call.png"
+                alt="Call to action image"
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block'
+                }}
+              />
             </Box>
           </Grid>
         </Grid>

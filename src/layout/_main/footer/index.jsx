@@ -65,7 +65,7 @@ export default function Footer({ branding }) {
             <Stack spacing={3}>
               <Logo branding={branding} />
               <Typography variant="body1" color="text.secondary">
-                Lorem Ipsum is simply dummy text of the printing and typesetting industry.
+                More than a marketplace, Nekimart is a community where innovation, trust, and opportunity come together.
               </Typography>
               <Stack>
                 <Stack direction={'row'} alignItems={'center'} gap={2}>
@@ -217,7 +217,7 @@ export default function Footer({ branding }) {
         </Grid>
         <Divider sx={{ my: 3 }} />
         <Typography variant="body1" color="text.primary" textAlign="center">
-          © 2024 Nextall. All rights reserved
+          © 2024 Nekimart. All rights reserved
         </Typography>
       </Container>
     </Box>

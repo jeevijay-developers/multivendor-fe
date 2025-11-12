@@ -3,6 +3,7 @@ import React from 'react';
 import { Box, Container, Typography, Stack, Button, Grid } from '@mui/material';
 import { alpha } from '@mui/material/styles';
 import Link from 'next/link';
+import Image from 'next/image';
 import { FaArrowRight, FaShoppingBag } from 'react-icons/fa';
 
 export default function LandingHero() {
@@ -145,23 +146,24 @@ export default function LandingHero() {
               sx={{
                 width: '100%',
                 height: { xs: 350, md: 500 },
-                bgcolor: 'rgba(255,255,255,0.1)',
                 borderRadius: 3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '3px dashed rgba(255,255,255,0.3)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)'
               }}
             >
-              <Typography variant="h5" color="white" textAlign="center" px={3} fontWeight={500}>
-                [Hero Image Placeholder]
-                <br />
-                <Typography variant="body2" color="rgba(255,255,255,0.8)" mt={1}>
-                  Add an inspiring image of women entrepreneurs
-                </Typography>
-              </Typography>
+              <Box
+                component="img"
+                src="/banner.png"
+                alt="Women entrepreneurs empowerment"
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block'
+                }}
+              />
             </Box>
           </Grid>
         </Grid>

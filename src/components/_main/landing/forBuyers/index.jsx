@@ -16,23 +16,29 @@ export default function ForBuyers() {
               sx={{
                 width: '100%',
                 height: { xs: 350, md: 500 },
-                bgcolor: 'rgba(50, 119, 208, 0.1)',
                 borderRadius: 3,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                border: '3px dashed rgba(50, 119, 208, 0.3)',
                 position: 'relative',
-                overflow: 'hidden'
+                overflow: 'hidden',
+                boxShadow: '0 8px 32px rgba(0,0,0,0.3)',
+                bgcolor: '#f5f5f5'
               }}
             >
-              <Typography variant="h5" color="text.disabled" textAlign="center" px={3} fontWeight={600}>
-                [Empowerment Mission Banner]
-                <br />
-                <Typography variant="body2" color="text.disabled" mt={1}>
-                  Add empowerment mission banner image
-                </Typography>
-              </Typography>
+              <Box
+                component="img"
+                src="/empowerment.png"
+                alt="Empowerment mission banner"
+                loading="eager"
+                sx={{
+                  width: '100%',
+                  height: '100%',
+                  objectFit: 'cover',
+                  objectPosition: 'center',
+                  display: 'block'
+                }}
+                onError={(e) => {
+                  console.error('Image failed to load:', e.target.src);
+                }}
+              />
             </Box>
           </Grid>
           <Grid item xs={12} md={6}>

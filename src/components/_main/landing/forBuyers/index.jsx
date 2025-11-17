@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Box, Container, Typography, Stack, Grid, List, ListItem, ListItemIcon, ListItemText } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import { FaCheckCircle } from 'react-icons/fa';
 
 const buyerReasons = ['Explore verified sellers', 'Support women-led businesses', 'Buy genuine and creative products'];

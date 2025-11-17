@@ -1,9 +1,7 @@
 'use client';
 import React from 'react';
 import { Box, Container, Typography, Stack, Button, Grid } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import Link from 'next/link';
-import Image from 'next/image';
 import { FaArrowRight, FaShoppingBag } from 'react-icons/fa';
 
 export default function LandingHero() {

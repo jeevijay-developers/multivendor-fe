@@ -21,7 +21,6 @@ export default function WomanEmpowerPage() {
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-6 py-16 space-y-20">
-        
         {/* Image Placeholder Section */}
         <section className="relative">
           <div className="relative h-96 bg-gradient-to-br from-blue-200 to-cyan-200 rounded-3xl overflow-hidden shadow-2xl">
@@ -45,10 +44,14 @@ export default function WomanEmpowerPage() {
             </div>
             <div className="h-1 w-24 bg-gradient-to-r from-blue-500 to-cyan-500 rounded"></div>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Women are the pillars of strength, compassion, and resilience. They nurture families, build communities, and drive progress across every sphere of life. From ancient wisdom to modern innovation, women have shaped civilizations and continue to inspire generations.
+              Women are the pillars of strength, compassion, and resilience. They nurture families, build communities,
+              and drive progress across every sphere of life. From ancient wisdom to modern innovation, women have
+              shaped civilizations and continue to inspire generations.
             </p>
             <p className="text-lg text-gray-700 leading-relaxed">
-              Every woman carries within her the power to create, transform, and elevate. Her grace, determination, and boundless energy are forces that deserve celebration every single day. When we empower women, we empower the world.
+              Every woman carries within her the power to create, transform, and elevate. Her grace, determination, and
+              boundless energy are forces that deserve celebration every single day. When we empower women, we empower
+              the world.
             </p>
           </div>
           <div className="grid grid-cols-2 gap-6">
@@ -94,27 +97,25 @@ export default function WomanEmpowerPage() {
               <div className="h-1 w-full bg-gradient-to-r from-blue-500 to-cyan-500 rounded"></div>
             </div>
             <p className="text-xl text-gray-700 leading-relaxed">
-              Nekimart is more than just a marketplace—it's a celebration of goodness, values, and the spirit of womanhood. We believe in creating a platform where quality meets compassion, where every product tells a story of care and craftsmanship.
+              Nekimart is more than just a marketplace—it's a celebration of goodness, values, and the spirit of
+              womanhood. We believe in creating a platform where quality meets compassion, where every product tells a
+              story of care and craftsmanship.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              Our mission is to empower women entrepreneurs, celebrate women consumers, and create a community built on trust, authenticity, and mutual respect. At Nekimart, we curate products that resonate with the essence of goodness—handpicked with love for women who deserve nothing but the best.
+              Our mission is to empower women entrepreneurs, celebrate women consumers, and create a community built on
+              trust, authenticity, and mutual respect. At Nekimart, we curate products that resonate with the essence of
+              goodness—handpicked with love for women who deserve nothing but the best.
             </p>
             <p className="text-lg text-gray-600 leading-relaxed">
-              From sustainable fashion to wellness products, from artisanal crafts to modern essentials, Nekimart is your trusted companion in life's beautiful journey. We stand for quality, ethics, and the celebration of feminine strength in all its forms.
+              From sustainable fashion to wellness products, from artisanal crafts to modern essentials, Nekimart is
+              your trusted companion in life's beautiful journey. We stand for quality, ethics, and the celebration of
+              feminine strength in all its forms.
             </p>
             <div className="flex flex-wrap justify-center gap-4 pt-6">
-              <div className="px-6 py-3 bg-blue-100 text-blue-700 rounded-full font-semibold">
-                Women-Centric
-              </div>
-              <div className="px-6 py-3 bg-cyan-100 text-cyan-700 rounded-full font-semibold">
-                Quality First
-              </div>
-              <div className="px-6 py-3 bg-sky-100 text-sky-700 rounded-full font-semibold">
-                Ethical & Sustainable
-              </div>
-              <div className="px-6 py-3 bg-blue-100 text-blue-700 rounded-full font-semibold">
-                Community Driven
-              </div>
+              <div className="px-6 py-3 bg-blue-100 text-blue-700 rounded-full font-semibold">Women-Centric</div>
+              <div className="px-6 py-3 bg-cyan-100 text-cyan-700 rounded-full font-semibold">Quality First</div>
+              <div className="px-6 py-3 bg-sky-100 text-sky-700 rounded-full font-semibold">Ethical & Sustainable</div>
+              <div className="px-6 py-3 bg-blue-100 text-blue-700 rounded-full font-semibold">Community Driven</div>
             </div>
           </div>
         </section>
@@ -142,7 +143,6 @@ export default function WomanEmpowerPage() {
             </p>
           </div>
         </section>
-
       </main>
 
       {/* Footer */}

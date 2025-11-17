@@ -12,7 +12,6 @@ import {
   ListItemText,
   Button
 } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import { FaCheckCircle, FaShoppingBag, FaArrowRight } from 'react-icons/fa';
 import Link from 'next/link';
 
@@ -73,30 +72,30 @@ export default function Benefits() {
                 ))}
               </List>
               <Button
-                  component={Link}
-                  href="/home"
-                  variant="contained"
-                  size="medium"
-                  startIcon={<FaShoppingBag />}
-                  endIcon={<FaArrowRight />}
-                  sx={{
-                    bgcolor: 'white',
-                    color: '#3277d0',
-                    px: 3,
-                    py: 1.2,
-                    fontSize: '1rem',
-                    fontWeight: 600,
-                    boxShadow: 'none',
-                    width: 'fit-content',
-                    '&:hover': {
-                      bgcolor: 'rgba(255,255,255,0.9)',
-                      transform: 'translateY(-3px)',
-                      boxShadow: 'none'
-                    }
-                  }}
-                >
-                  Shop Now
-                </Button>
+                component={Link}
+                href="/home"
+                variant="contained"
+                size="medium"
+                startIcon={<FaShoppingBag />}
+                endIcon={<FaArrowRight />}
+                sx={{
+                  bgcolor: 'white',
+                  color: '#3277d0',
+                  px: 3,
+                  py: 1.2,
+                  fontSize: '1rem',
+                  fontWeight: 600,
+                  boxShadow: 'none',
+                  width: 'fit-content',
+                  '&:hover': {
+                    bgcolor: 'rgba(255,255,255,0.9)',
+                    transform: 'translateY(-3px)',
+                    boxShadow: 'none'
+                  }
+                }}
+              >
+                Shop Now
+              </Button>
             </Stack>
           </Grid>
 

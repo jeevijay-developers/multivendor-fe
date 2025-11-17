@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Box, Container, Typography, Stack, Grid, Card, CardContent } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import { FaUserPlus, FaClipboardList, FaBullhorn, FaInbox, FaRocket } from 'react-icons/fa';
 
 const steps = [

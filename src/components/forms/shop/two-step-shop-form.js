@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import {
-  Grid,
   Card,
   CardHeader,
   CardContent,
@@ -37,7 +36,7 @@ export default function TwoStepShopForm({ handleDrop, formik, state, handleNameC
           'contactPerson',
           'shopEmail',
           'shopPhone',
-          'website',
+          'website'
         ];
       case 1:
         return ['identityVerification.governmentId', 'identityVerification.proofOfAddress'];
@@ -129,7 +128,7 @@ export default function TwoStepShopForm({ handleDrop, formik, state, handleNameC
           />
         );
       case 1:
-        return  <OwnerDetailsForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
+        return <OwnerDetailsForm isLoading={isLoading} handleDrop={handleDrop} state={state} formik={formik} />;
       default:
         return null;
     }

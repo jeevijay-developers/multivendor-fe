@@ -81,12 +81,12 @@ export default function CreateShopSettingFrom() {
     logo: Yup.object().required('Logo is required'),
 
     name: Yup.string().required('Shop name is required'),
-  // registrationNumber removed
+    // registrationNumber removed
     address: Yup.object().shape({
       country: Yup.string().required('Country is required'),
       city: Yup.string().required('City is required'),
       state: Yup.string().required('State is required'),
-      streetAddress: Yup.string().optional(),
+      streetAddress: Yup.string().optional()
     }),
     contactPerson: Yup.string(),
     shopEmail: Yup.string().email('Invalid email').required('Shop email is required'),
@@ -119,7 +119,7 @@ export default function CreateShopSettingFrom() {
         address: Yup.string(),
         routingNumber: Yup.string(),
         swiftCode: Yup.string()
-      }),
+      })
     }),
     operationalDetails: Yup.object().shape({ returnPolicy: Yup.string(), handlingTime: Yup.string() }),
     legalAgreements: Yup.object().shape({
@@ -141,7 +141,7 @@ export default function CreateShopSettingFrom() {
       metaTitle: '',
       description: '',
       metaDescription: '',
-  // registrationNumber removed
+      // registrationNumber removed
       address: { country: '', city: '', state: '', streetAddress: '' },
       contactPerson: '',
       shopEmail: '',
@@ -159,7 +159,7 @@ export default function CreateShopSettingFrom() {
           address: '',
           routingNumber: '',
           swiftCode: ''
-        },
+        }
       },
       identityVerification: { governmentId: null, proofOfAddress: null },
       operationalDetails: { returnPolicy: '', handlingTime: 0 },
@@ -314,7 +314,7 @@ export default function CreateShopSettingFrom() {
                     <Box sx={{ width: '100%' }}>
                       <div>
                         <LabelStyle component={'label'} htmlFor="title">
-                          Name  of Supplier
+                          Name of Supplier
                         </LabelStyle>
 
                         <TextField
@@ -714,8 +714,7 @@ export default function CreateShopSettingFrom() {
                             </div>
                           </>
                         </Collapse>
-                        <div>
-                        </div>
+                        <div></div>
                       </Stack>
                     </CardContent>
                   </Card>

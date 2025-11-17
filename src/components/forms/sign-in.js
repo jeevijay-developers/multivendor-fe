@@ -26,9 +26,7 @@ import {
   IconButton,
   InputAdornment,
   FormControlLabel,
-  Button,
-  Alert,
-  AlertTitle
+  Button
 } from '@mui/material';
 // icons
 import { MdOutlineVisibility, MdLock, MdOutlineVisibilityOff } from 'react-icons/md';
@@ -76,7 +74,7 @@ export default function SignInForm() {
       mutate({ email, password });
     }
   });
-  const { errors, touched, setFieldValue, values, handleSubmit, getFieldProps } = formik;
+  const { errors, touched, values, handleSubmit, getFieldProps } = formik;
   return (
     <>
       {/* <Stack mb={3} gap={2} sx={{ '& .MuiAlert-action': { alignItems: 'center' } }}>

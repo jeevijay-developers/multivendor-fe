@@ -30,7 +30,7 @@ import ShopDetailsForm from '@/components/forms/shop/shop-details';
 import { updateUserRole } from '@/redux/slices/user';
 import * as api from 'src/services'; // adjust based on your actual path
 import FinancialDetailsForm from '@/components/forms/shop/financial-details';
-import SingleShopForm from "../../forms/shop/single-shop-form";
+import SingleShopForm from '../../forms/shop/single-shop-form';
 import { isValidPhoneNumber } from 'react-phone-number-input';
 
 const STATUS_OPTIONS = ['pending', 'approved', 'in review', 'action required', 'cancel', 'closed'];
@@ -78,7 +78,9 @@ export default function ShopMain({ isShopLoading, shop, type }) {
           search: '',
           open: false
         });
-      } catch (_) {}
+      } catch {
+        // Error handled
+      }
       if (isCreatingShop) {
         toast.success('🎉 Shop created successfully! Your shop is now under review.');
         dispatch(updateUserRole());
@@ -99,7 +101,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
     logo: Yup.object(),
     name: Yup.string().required('Shop name is required'),
     description: Yup.string().max(500, 'Description cannot exceed 500 characters').required('Description is required'),
-  // registrationNumber removed
+    // registrationNumber removed
     stateOfSupplier: Yup.string().required('State of supplier is required'),
     incomeTaxPAN: Yup.string()
       .matches(/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/, 'Income Tax PAN must be in format ABCDE1234F')
@@ -113,7 +115,10 @@ export default function ShopMain({ isShopLoading, shop, type }) {
     }),
     letterOfAuthority: Yup.object().when('stateOfSupplier', {
       is: 'Partnership Firm',
-      then: (schema) => schema.shape({ url: Yup.string().url('Invalid URL').required('Consent letter is required') }).required('Consent letter is required'),
+      then: (schema) =>
+        schema
+          .shape({ url: Yup.string().url('Invalid URL').required('Consent letter is required') })
+          .required('Consent letter is required'),
       otherwise: (schema) => schema.notRequired()
     }),
     contactPerson: Yup.string(),
@@ -143,8 +148,8 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       aadharCardPhotos: Yup.array()
         .min(2, 'Both front and back photos of Aadhar card are required')
         .required('Aadhar card photos are required'),
-      panCardPhoto: Yup.object().shape({ 
-        url: Yup.string().url('Invalid URL').required('PAN card photo is required') 
+      panCardPhoto: Yup.object().shape({
+        url: Yup.string().url('Invalid URL').required('PAN card photo is required')
       }),
       cancelCheque: Yup.object().shape({
         url: Yup.string().url('Invalid URL').required('Cancel cheque photo is required')
@@ -199,10 +204,10 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       metaTitle: isCreatingShop ? '' : (shop?.metaTitle ?? ''),
       description: isCreatingShop ? '' : (shop?.description ?? ''),
       metaDescription: isCreatingShop ? '' : (shop?.metaDescription ?? ''),
-  // registrationNumber removed
+      // registrationNumber removed
       stateOfSupplier: isCreatingShop ? '' : (shop?.stateOfSupplier ?? ''),
       incomeTaxPAN: isCreatingShop ? '' : (shop?.incomeTaxPAN ?? ''),
-  letterOfAuthority: isCreatingShop ? null : (shop?.letterOfAuthority ?? null),
+      letterOfAuthority: isCreatingShop ? null : (shop?.letterOfAuthority ?? null),
       address: {
         streetAddress: isCreatingShop ? '' : (shop?.address?.streetAddress ?? ''),
         city: isCreatingShop ? '' : (shop?.address?.city ?? ''),
@@ -249,7 +254,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       aadharCardFile: isCreatingShop ? null : (shop?.ownerDetails?.aadharCard ?? null),
       panCardFile: isCreatingShop ? null : (shop?.ownerDetails?.panCard ?? null),
       cancelChequeFile: isCreatingShop ? null : (shop?.ownerDetails?.cancelCheque ?? null),
-  letterOfAuthorityFile: isCreatingShop ? null : (shop?.letterOfAuthority?.url ?? null),
+      letterOfAuthorityFile: isCreatingShop ? null : (shop?.letterOfAuthority?.url ?? null),
       ...(isAdmin && {
         status: shop ? shop.status : STATUS_OPTIONS[0], // Only include message if shop exists
         message:
@@ -326,7 +331,7 @@ export default function ShopMain({ isShopLoading, shop, type }) {
       }
 
       return uploaded;
-    } catch (e) {
+    } catch {
       toast.error('Upload failed. Please try again.');
       return null;
     } finally {

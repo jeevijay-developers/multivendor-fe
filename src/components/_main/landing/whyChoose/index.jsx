@@ -1,7 +1,6 @@
 'use client';
 import React from 'react';
 import { Box, Container, Typography, Stack, Grid, Card, CardContent } from '@mui/material';
-import { alpha } from '@mui/material/styles';
 import { FaCheckCircle, FaLaptop, FaBullhorn, FaGlobe, FaStar } from 'react-icons/fa';
 
 const reasons = [

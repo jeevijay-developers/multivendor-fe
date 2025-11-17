@@ -1,11 +1,11 @@
 import React from 'react';
-import { 
-  Box, 
-  Grid, 
-  Stack, 
-  TextField, 
-  Typography, 
-  FormHelperText, 
+import {
+  Box,
+  Grid,
+  Stack,
+  TextField,
+  Typography,
+  FormHelperText,
   Skeleton,
   Card,
   CardContent,
@@ -25,11 +25,11 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
   const { values, errors, touched, submitCount, getFieldProps, setFieldValue } = formik;
   const isUploading = Boolean(
     state.logoLoading ||
-    state.aadharCardFrontLoading ||
-    state.aadharCardBackLoading ||
-    state.panCardLoading ||
-    state.cancelChequeLoading ||
-    state.letterOfAuthorityLoading
+      state.aadharCardFrontLoading ||
+      state.aadharCardBackLoading ||
+      state.panCardLoading ||
+      state.cancelChequeLoading ||
+      state.letterOfAuthorityLoading
   );
 
   const renderLabel = (label, required = true) =>
@@ -60,7 +60,7 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
     const entry = {
       _id: uploaded._id || uploaded.public_id,
       url: uploaded.url || uploaded.secure_url,
-      side,
+      side
     };
 
     const current = Array.isArray(values.ownerDetails?.aadharCardPhotos)
@@ -86,7 +86,7 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
 
     setFieldValue('ownerDetails.panCardPhoto', {
       _id: uploaded._id || uploaded.public_id,
-      url: uploaded.url || uploaded.secure_url,
+      url: uploaded.url || uploaded.secure_url
     });
   };
 
@@ -106,7 +106,8 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                 loading={state.logoLoading}
                 maxSize={3145728}
                 onDrop={(v) => handleDrop(v, 'logo')}
-                error={Boolean(touched?.logo && errors?.logo)} />
+                error={Boolean(touched?.logo && errors?.logo)}
+              />
             )}
             {!isLoading && touched?.logo && errors?.logo && (
               <FormHelperText error sx={{ px: 2 }}>
@@ -200,7 +201,7 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                     helperText: (touched?.incomeTaxPAN || submitCount > 0) && errors?.incomeTaxPAN
                   })}
                 </Stack>
-{/* 
+                {/* 
 
                 <Stack gap={1}>
                   {renderLabel('Street Address')}
@@ -214,89 +215,88 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                   })}
                 </Stack> */}
 
-
                 <Stack gap={1}>
                   {renderLabel('City')}
                   {renderTextField('address.city', {
                     ...getFieldProps('address.city'),
-                    error: Boolean(((touched?.address?.city) || submitCount > 0) && errors?.address?.city),
-                    helperText: ((touched?.address?.city) || submitCount > 0) && errors?.address?.city,
+                    error: Boolean((touched?.address?.city || submitCount > 0) && errors?.address?.city),
+                    helperText: (touched?.address?.city || submitCount > 0) && errors?.address?.city,
                     placeholder: 'e.g. Mumbai'
                   })}
                 </Stack>
-
 
                 <Stack gap={1}>
                   {renderLabel('State')}
                   {renderTextField('address.state', {
                     ...getFieldProps('address.state'),
-                    error: Boolean(((touched?.address?.state) || submitCount > 0) && errors?.address?.state),
-                    helperText: ((touched?.address?.state) || submitCount > 0) && errors?.address?.state,
+                    error: Boolean((touched?.address?.state || submitCount > 0) && errors?.address?.state),
+                    helperText: (touched?.address?.state || submitCount > 0) && errors?.address?.state,
                     placeholder: 'e.g. Maharashtra'
                   })}
                 </Stack>
+              </Stack>
+            </Grid>
 
-        </Stack>
-      </Grid>
+            {/* Right Column */}
+            <Grid size={{ xs: 12, md: 6 }}>
+              <Stack gap={3}>
+                <Stack gap={1}>
+                  {renderLabel('Supplier Email')}
+                  {renderTextField('shopEmail', {
+                    ...getFieldProps('shopEmail'),
+                    error: Boolean((touched?.shopEmail || submitCount > 0) && errors?.shopEmail),
+                    helperText: (touched?.shopEmail || submitCount > 0) && errors?.shopEmail,
+                    placeholder: 'e.g. supplier@email.com'
+                  })}
+                </Stack>
 
-      {/* Right Column */}
-      <Grid size={{ xs: 12, md: 6 }}>
-        <Stack gap={3}>
-          <Stack gap={1}>
-            {renderLabel('Supplier Email')}
-            {renderTextField('shopEmail', {
-              ...getFieldProps('shopEmail'),
-              error: Boolean((touched?.shopEmail || submitCount > 0) && errors?.shopEmail),
-              helperText: (touched?.shopEmail || submitCount > 0) && errors?.shopEmail,
-              placeholder: 'e.g. supplier@email.com'
-            })}
-          </Stack>
+                <Stack gap={1}>
+                  {renderLabel('Supplier Phone')}
+                  {isLoading ? (
+                    <Skeleton variant="rounded" height={56} width="100%" />
+                  ) : (
+                    <PhoneInputField
+                      error={(touched?.shopPhone || submitCount > 0) && errors?.shopPhone}
+                      onChange={(val) => setFieldValue('shopPhone', val)}
+                      value={values.shopPhone}
+                    />
+                  )}
+                </Stack>
 
-          <Stack gap={1}>
-            {renderLabel('Supplier Phone')}
-            {isLoading ? (
-              <Skeleton variant="rounded" height={56} width="100%" />
-            ) : (
-              <PhoneInputField
-                error={(touched?.shopPhone || submitCount > 0) && errors?.shopPhone}
-                onChange={(val) => setFieldValue('shopPhone', val)}
-                value={values.shopPhone} />
-            )}
-          </Stack>
+                <Stack gap={1}>
+                  {renderLabel('Website', false)}
+                  {renderTextField('website', {
+                    ...getFieldProps('website'),
+                    error: Boolean(touched?.website && errors?.website),
+                    helperText: touched?.website && errors?.website,
+                    placeholder: 'e.g. https://yourshop.com'
+                  })}
+                </Stack>
 
-          <Stack gap={1}>
-            {renderLabel('Website', false)}
-            {renderTextField('website', {
-              ...getFieldProps('website'),
-              error: Boolean(touched?.website && errors?.website),
-              helperText: touched?.website && errors?.website,
-              placeholder: 'e.g. https://yourshop.com'
-            })}
-          </Stack>
-          
                 <Stack gap={1}>
                   {renderLabel('Address')}
                   {renderTextField('address.streetAddress', {
                     ...getFieldProps('address.streetAddress'),
-                    error: Boolean(((touched?.address?.streetAddress) || submitCount > 0) && errors?.address?.streetAddress),
-                    helperText: ((touched?.address?.streetAddress) || submitCount > 0) && errors?.address?.streetAddress,
+                    error: Boolean(
+                      (touched?.address?.streetAddress || submitCount > 0) && errors?.address?.streetAddress
+                    ),
+                    helperText: (touched?.address?.streetAddress || submitCount > 0) && errors?.address?.streetAddress,
                     multiline: true,
                     rows: 1,
                     placeholder: 'e.g. 123, Main Road, Near Park'
                   })}
                 </Stack>
 
-                
                 <Stack gap={1}>
                   {renderLabel('Zipcode')}
                   {renderTextField('address.zipcode', {
                     ...getFieldProps('address.zipcode'),
-                    error: Boolean(((touched?.address?.zipcode) || submitCount > 0) && errors?.address?.zipcode),
-                    helperText: ((touched?.address?.zipcode) || submitCount > 0) && errors?.address?.zipcode,
+                    error: Boolean((touched?.address?.zipcode || submitCount > 0) && errors?.address?.zipcode),
+                    helperText: (touched?.address?.zipcode || submitCount > 0) && errors?.address?.zipcode,
                     placeholder: 'e.g. 400001'
                   })}
                 </Stack>
-                
+
                 <Stack gap={1}>
                   {renderLabel('Country')}
                   {isLoading ? (
@@ -308,8 +308,8 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                       fullWidth
                       {...getFieldProps('address.country')}
                       SelectProps={{ native: true }}
-                      error={Boolean(((touched?.address?.country) || submitCount > 0) && errors?.address?.country)}
-                      helperText={((touched?.address?.country) || submitCount > 0) && errors?.address?.country}
+                      error={Boolean((touched?.address?.country || submitCount > 0) && errors?.address?.country)}
+                      helperText={(touched?.address?.country || submitCount > 0) && errors?.address?.country}
                     >
                       <option value="">Select Country</option>
                       {countries.map((option) => (
@@ -320,27 +320,27 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                     </TextField>
                   )}
                 </Stack>
-        </Stack>
-      </Grid>
-    </Grid>
+              </Stack>
+            </Grid>
+          </Grid>
 
-    <Stack gap={1} mt={3}>
-        {renderLabel('Description')}
-        {isLoading ? (
-          <Skeleton variant="rectangular" height={120} sx={{ borderRadius: 1 }} />
-        ) : (
-          <TextField
-            id="description"
-            fullWidth
-            multiline
-            rows={4}
-            {...getFieldProps('description')}
-            error={Boolean((touched?.description || submitCount > 0) && errors?.description)}
-            helperText={(touched?.description || submitCount > 0) && errors?.description}
-            placeholder="Describe your shop, products, and specialties"
-          />
-        )}
-      </Stack>
+          <Stack gap={1} mt={3}>
+            {renderLabel('Description')}
+            {isLoading ? (
+              <Skeleton variant="rectangular" height={120} sx={{ borderRadius: 1 }} />
+            ) : (
+              <TextField
+                id="description"
+                fullWidth
+                multiline
+                rows={4}
+                {...getFieldProps('description')}
+                error={Boolean((touched?.description || submitCount > 0) && errors?.description)}
+                helperText={(touched?.description || submitCount > 0) && errors?.description}
+                placeholder="Describe your shop, products, and specialties"
+              />
+            )}
+          </Stack>
         </CardContent>
       </Card>
 
@@ -448,7 +448,10 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                       <UploadSingleFile
                         file={values?.aadharCardFrontFile}
                         onDrop={(v) => handleAadharDrop(v, 'front')}
-                        error={Boolean(((touched?.ownerDetails?.aadharCardPhotos) || submitCount > 0) && errors?.ownerDetails?.aadharCardPhotos)}
+                        error={Boolean(
+                          (touched?.ownerDetails?.aadharCardPhotos || submitCount > 0) &&
+                            errors?.ownerDetails?.aadharCardPhotos
+                        )}
                         accept="image/*"
                         loading={state?.aadharCardFrontLoading}
                         helperText="Upload front side of Aadhar card"
@@ -466,7 +469,10 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                       <UploadSingleFile
                         file={values?.aadharCardBackFile}
                         onDrop={(v) => handleAadharDrop(v, 'back')}
-                        error={Boolean(((touched?.ownerDetails?.aadharCardPhotos) || submitCount > 0) && errors?.ownerDetails?.aadharCardPhotos)}
+                        error={Boolean(
+                          (touched?.ownerDetails?.aadharCardPhotos || submitCount > 0) &&
+                            errors?.ownerDetails?.aadharCardPhotos
+                        )}
                         accept="image/*"
                         loading={state?.aadharCardBackLoading}
                         helperText="Upload back side of Aadhar card"
@@ -488,7 +494,9 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                       <UploadSingleFile
                         file={values?.panCardFile}
                         onDrop={(v) => handlePanDrop(v)}
-                        error={Boolean(((touched?.ownerDetails?.panCardPhoto) || submitCount > 0) && errors?.ownerDetails?.panCardPhoto)}
+                        error={Boolean(
+                          (touched?.ownerDetails?.panCardPhoto || submitCount > 0) && errors?.ownerDetails?.panCardPhoto
+                        )}
                         accept="image/*"
                         loading={state?.panCardLoading}
                         helperText="Upload front side of PAN card"
@@ -506,7 +514,9 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
                       <UploadSingleFile
                         file={values?.cancelChequeFile}
                         onDrop={(v) => handleDrop(v, 'ownerDetails.cancelCheque')}
-                        error={Boolean(((touched?.ownerDetails?.cancelCheque) || submitCount > 0) && errors?.ownerDetails?.cancelCheque)}
+                        error={Boolean(
+                          (touched?.ownerDetails?.cancelCheque || submitCount > 0) && errors?.ownerDetails?.cancelCheque
+                        )}
                         accept="image/*"
                         loading={state?.cancelChequeLoading}
                         helperText="Upload cancelled cheque"
@@ -543,10 +553,7 @@ export default function SingleShopForm({ handleDrop, formik, state, handleNameCh
               disabled={isLoading || isSubmitting || isUploading}
               startIcon={isSubmitting ? <CircularProgress size={20} color="inherit" /> : null}
             >
-              {isSubmitting 
-                ? 'Creating Shop...' 
-                : (values.id ? 'Update Shop' : 'Create Shop')
-              }
+              {isSubmitting ? 'Creating Shop...' : values.id ? 'Update Shop' : 'Create Shop'}
             </Button>
           </Stack>
         </CardContent>

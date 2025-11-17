@@ -5,7 +5,7 @@ import { Box, Grid, Stack, TextField, Typography, FormHelperText, Skeleton } fro
 import UploadSingleFile from 'src/components/upload/UploadSingleFile';
 
 export default function OwnerDetailsForm({ handleDrop, formik, state, isLoading }) {
-  const { values, errors, touched, getFieldProps, setFieldValue } = formik;
+  const { values, errors, touched, getFieldProps } = formik;
 
   const renderLabel = (label) =>
     isLoading ? (

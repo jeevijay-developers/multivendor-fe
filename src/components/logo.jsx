@@ -5,9 +5,9 @@ import PropTypes from 'prop-types';
 import { Box, useTheme } from '@mui/material';
 import Image from 'next/image';
 
-const Logo = ({ branding }) => {
+const Logo = ({ branding: _branding }) => {
   const theme = useTheme();
-  const isDarkMode = theme.palette.mode === 'dark';
+  const _isDarkMode = theme.palette.mode === 'dark';
   // src={isDarkMode?darkekt:}
   return (
     <Box
